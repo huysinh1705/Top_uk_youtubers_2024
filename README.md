@@ -23,13 +23,85 @@ We need data on the top UK YouTubers in 2024 that includes their:
 
 The data is sourced from Kaggle (an Excel extract), [see here to find it.](https://www.kaggle.com/datasets/bhavyadhingra00020/top-100-social-media-influencers-2024-countrywise?resource=download)
 
-# Data cleaning
+# Development
+
+## Procedure
+- What's the general approach in creating this solution from start to finish?
+
+1. Get the data
+2. Explore the data in Excel
+3. Load the data into SQL Server
+4. Clean the data with SQL
+5. Test the data with SQL
+6. Visualize the data in Power BI
+7. Generate the findings based on the insights
+8. Write the documentation + commentary
+9. Publish the data to GitHub Pages
+
 ## Data cleaning
+- What do we expect the clean data to look like? (What should it contain? What contraints should we apply to it?)
+
+The aim is to refine our dataset to ensure it is structured and ready for analysis. 
+
+The cleaned data should meet the following criteria and constraints:
+
+- Only relevant columns should be retained.
+- All data types should be appropriate for the contents of each column.
+- No column should contain null values, indicating complete data for all records.
+- What steps are needed to clean and shape the data into the desired format?
 1. Remove unnecessary columns by only selecting the ones we need
 2. Extract the Youtube channel names from the first columns
 3. Rename the column names
    <img width="980" height="582" alt="image" src="https://github.com/user-attachments/assets/d71f6fac-4b93-4c84-a50a-27f3641fa80a" />
-## Data Quality Testing
+### Transform the data 
+
+
+
+```sql
+/*
+# 1. Select the required columns
+# 2. Extract the channel name from the 'NOMBRE' column
+*/
+
+-- 1.
+SELECT
+    SUBSTRING(NOMBRE, 1, CHARINDEX('@', NOMBRE) -1) AS channel_name,  -- 2.
+    total_subscribers,
+    total_views,
+    total_videos
+
+FROM
+    top_uk_youtubers_2024
+```
+
+
+### Create the SQL view 
+
+```sql
+/*
+# 1. Create a view to store the transformed data
+# 2. Cast the extracted channel name as VARCHAR(100)
+# 3. Select the required columns from the top_uk_youtubers_2024 SQL table 
+*/
+
+-- 1.
+CREATE VIEW view_uk_youtubers_2024 AS
+
+-- 2.
+SELECT
+    CAST(SUBSTRING(NOMBRE, 1, CHARINDEX('@', NOMBRE) -1) AS VARCHAR(100)) AS channel_name, -- 2. 
+    total_subscribers,
+    total_views,
+    total_videos
+
+-- 3.
+FROM
+    top_uk_youtubers_2024
+
+```
+# Testing
+- What data quality and validation checks are you going to create?
+Here are the data quality tests conducted:
 1. The data needs to be 100 records of YouTube channels (row count test)
 2. The data needs 4 fields (column count test)
 3. The channel name column must be string format, and the other columns must be numerical data types (data type check)
@@ -44,6 +116,80 @@ The data is sourced from Kaggle (an Excel extract), [see here to find it.](https
   - Duplicate count = 0
 <img width="968" height="590" alt="image" src="https://github.com/user-attachments/assets/6f817109-5c8a-4b15-903d-82eed509f9fa" />
 
+## Row count check
+```sql
+/*
+# Count the total number of records (or rows) are in the SQL view
+*/
+
+SELECT
+    COUNT(*) AS no_of_rows
+FROM
+    view_uk_youtubers_2024;
+
+```
+
+
+## Column count check
+### SQL query 
+```sql
+/*
+# Count the total number of columns (or fields) are in the SQL view
+*/
+
+
+SELECT
+    COUNT(*) AS column_count
+FROM
+    INFORMATION_SCHEMA.COLUMNS
+WHERE
+    TABLE_NAME = 'view_uk_youtubers_2024'
+```
+
+
+
+## Data type check
+### SQL query 
+```sql
+/*
+# Check the data types of each column from the view by checking the INFORMATION SCHEMA view
+*/
+
+-- 1.
+SELECT
+    COLUMN_NAME,
+    DATA_TYPE
+FROM
+    INFORMATION_SCHEMA.COLUMNS
+WHERE
+    TABLE_NAME = 'view_uk_youtubers_2024';
+```
+
+
+## Duplicate count check
+### SQL query 
+```sql
+/*
+# 1. Check for duplicate rows in the view
+# 2. Group by the channel name
+# 3. Filter for groups with more than one row
+*/
+
+-- 1.
+SELECT
+    channel_name,
+    COUNT(*) AS duplicate_count
+FROM
+    view_uk_youtubers_2024
+
+-- 2.
+GROUP BY
+    channel_name
+
+-- 3.
+HAVING
+    COUNT(*) > 1;
+```
 # Visualization
 ## Results
 <img width="1345" height="732" alt="image" src="https://github.com/user-attachments/assets/a36b94c7-6d30-44ad-8c75-9cef1a72942b" />
