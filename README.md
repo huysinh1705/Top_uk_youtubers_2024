@@ -45,3 +45,24 @@ The data is sourced from Kaggle (an Excel extract), https://www.kaggle.com/datas
 
 # Visualization
 ## Results
+<img width="1345" height="732" alt="image" src="https://github.com/user-attachments/assets/a36b94c7-6d30-44ad-8c75-9cef1a72942b" />
+
+## DAX Measures
+### 1. Total Subscribers (M)
+<img width="1265" height="137" alt="image" src="https://github.com/user-attachments/assets/1724a00e-4d88-4654-9d33-5f401f372e19" />
+
+### 2. Total Views (B)
+<img width="1272" height="140" alt="image" src="https://github.com/user-attachments/assets/a3b4b70c-d677-43c2-83f2-316b037c151a" />
+
+### 3. Total Videos
+<img width="1247" height="87" alt="image" src="https://github.com/user-attachments/assets/5c2186a0-7acb-44fa-a58e-0af4b84fc165" />
+
+### 4. Average Views Per Video (M)
+<img width="1227" height="166" alt="image" src="https://github.com/user-attachments/assets/01aa6946-7b4b-421d-8249-41de376afeb4" />
+
+### 5. Subscriber Engagement Rate
+<img width="785" height="137" alt="image" src="https://github.com/user-attachments/assets/e23f5a15-5659-46df-9e68-e9ca56500217" />
+
+### 6. Views per subscriber
+<img width="1046" height="136" alt="image" src="https://github.com/user-attachments/assets/707d57fd-ad4a-4b85-b514-18485960a5a7" />
+
