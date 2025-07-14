@@ -1,5 +1,5 @@
 # Top_uk_youtubers_2024
-<img width="1542" height="967" alt="image" src="https://github.com/user-attachments/assets/44b16d6a-229c-4726-8dfa-9aad28cb2f99" />
+![excel-to-powerbi-animated-diagram](images/kaggle_to_powerbi.gif)
 
 # Objective
 What is the key pain point?
